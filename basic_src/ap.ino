@@ -2,7 +2,7 @@
 
 #include <ESP8266WiFi.h>
 
-//server object
+//initiate server object
 WiFiServer server(80);
 
 //static ip settings
@@ -40,7 +40,7 @@ void setup()
 
 void loop() 
 {
-  //check server availability
+  //check client availability
   WiFiClient client = server.available();
   if (!client) 
     return;
@@ -48,13 +48,13 @@ void loop()
   //indicate connection
   digitalWrite(ledPin, LOW);
 
-  //Redir D4 input to server
+  //Redirect D4 input to client
   if (digitalRead(read_pin))
     client.println("HIGH\r");
   else
     client.println("LOW\r");
 
-  //flush the client
+  //flush the client data
   client.flush();
 
   digitalWrite(ledPin, HIGH);
